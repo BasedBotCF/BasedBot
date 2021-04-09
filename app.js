@@ -7,6 +7,7 @@ const client = new Discord.Client();
 const fs = require('fs');
 const nmp = require('minecraft-protocol')
 const mineflayerViewer = require('prismarine-viewer').mineflayer
+const prettyMilliseconds = require("pretty-ms");
 
 client.commands = new Discord.Collection();
 
@@ -197,7 +198,16 @@ bot.on('chat', (username, message) => {
       resolve()
     })
   }
-  
+
+
+  function uptime (sender, flags, args){
+    return new Promise((resolve, reject) => {     
+      bot.chat(`Uptime: ${prettyMilliseconds(client.uptime, {compact: true})}`);
+      console.log(prettyMilliseconds(client.uptime))
+      resolve()
+    })
+  }
+
   client.login(process.env.DISCORD_TOKEN)
 
   client.on("ready", async => {
