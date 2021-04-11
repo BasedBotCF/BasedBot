@@ -231,7 +231,14 @@ bot.on('chat', (username, message) => {
   })
 
   // The best based opinions
-  setInterval(() => bot.chat("DID YOU KNOW THAT IM SUPER BASED (USE ,COMMANDS FOR COMMANDS)"), 6000000)
+  let array = ["Do ?help for some useful commands", "What the fuck is a moomoo?", "SECOND BEST BOT","I can make stashes you know ,stash to make one",
+  "How long have Ive been up for? do ,uptime to check for me", "Check out my website lol basedbot,cf", "Im dead on the inside ,help for help please"
+  ]
+  setInterval(() => {
+    bot.chat(array[ Math.floor(Math.random() * array.length)])
+    }, 120000)
+    Math.floor(Math.random() * array.length - 1,
+  )
   
   bot._client.on('update_health', (packet) => {
     bot.health = packet.health
