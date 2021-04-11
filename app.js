@@ -100,7 +100,7 @@ bot.on('chat', (username, message) => {
       bot.chat(message)
       resolve()
     })
-  }
+  } // DO NOT USE UNLESS YOU LIKE SPAM!!! (Only keeping it just in case I need to use this code)
 
   function pog (sender, flags, args) {
     return new Promise((resolve, reject) => {
