@@ -79,6 +79,8 @@ bot.on("message", async message => {
     console.log(chat)
 })
 
+const cooldown = new Set();
+
 cmd.allowConsoleInput = true // Optional config argument
 bot.loadPlugin(cmd)
 
@@ -89,89 +91,169 @@ bot.on('chat', (username, message) => {
     }
   })
 
-  function sayCommand (sender, flags, args) {
-    return new Promise((resolve, reject) => {
-      let message = ''
-  
-      if (flags.showsender) message += sender + ': '
-      if (flags.color) message += '&' + flags.color[0]
-  
-      message += args.join(' ')
-      bot.chat(message)
-      resolve()
-    })
-  } // DO NOT USE UNLESS YOU LIKE SPAM!!! (Only keeping it just in case I need to use this code)
+  //function sayCommand (sender, flags, args) {
+    //return new Promise((resolve, reject) => {
+    //  let message = ''
+  //
+    //  if (flags.showsender) message += sender + ': '
+  //    if (flags.color) message += '&' + flags.color[0]
+//
+//      message += args.join(' ')
+//      bot.chat(message)
+//      resolve()
+//    })
+//  }
 
-  function pog (sender, flags, args) {
+  function pog (username, sender, flags, args) {
     return new Promise((resolve, reject) => {
-      bot.chat('POG')
-      resolve()
-    })
-  }
+      if (cooldown.has(bot.username)) {
+        bot.whisper(username, "Wait 6 seconds before getting typing this again. - ");
+      }else{
+        bot.chat('POG')
+        resolve()
+        cooldown.add(bot.username);
+        setTimeout(() => {
+          // Removes the user from the set after a minute
+          cooldown.delete(bot.username);
+        }, 6000);
+    }
+  })
+}
 
-  function MinecraftDay (sender, flags, args) {
+  function MinecraftDay (username, sender, flags, args) {
     return new Promise((resolve, reject) => {
+      if (cooldown.has(bot.username)) {
+        bot.whisper(username, "Wait 6 seconds before getting typing this again. - ");
+      }else{
       bot.chat(`This world has existed for ${bot.time.day} days.`)
       console.log(bot.time.day/365)
       resolve()
+        cooldown.add(bot.username);
+        setTimeout(() => {
+          // Removes the user from the set after a minute
+          cooldown.delete(bot.username);
+        }, 6000);
+      }
     })
   }
 
-  function WhatMoonPhase (sender, flags, args) {
+  function WhatMoonPhase (username, sender, flags, args) {
     return new Promise((resolve, reject) => {
+      if (cooldown.has(bot.username)) {
+        bot.whisper(username, "Wait 6 seconds before getting typing this again. - ");
+      }else{
       bot.chat(`We are on Moon Phase ${bot.time.moonPhase}.`)
       console.log(bot.time.moonPhase/7)
       resolve()
+      cooldown.add(bot.username);
+      setTimeout(() => {
+        // Removes the user from the set after a minute
+        cooldown.delete(bot.username);
+      }, 6000);
+      }
     })
   }
 
-  function KillMe (username, message, rawMessage) {
+  function KillMe (username, message, rawMessage, flags, args) {
     return new Promise((resolve, reject) => {
+      if (cooldown.has(bot.username)) {
+        bot.whisper(username, "Wait 6 seconds before getting typing this again. - ");
+      }else{
       bot.whisper(username, `Come and kill me ${bot.entity.position}.`)
       console.log(bot.entity.position)
       resolve()
+      cooldown.add(bot.username);
+      setTimeout(() => {
+        // Removes the user from the set after a minute
+        cooldown.delete(bot.username);
+      }, 6000);
+      }
     })
   }
 
-  function slashKill (sender, flags, args) {
+  function slashKill (username, sender, flags, args) {
     return new Promise((resolve, reject) => {
+      if (cooldown.has(bot.username)) {
+        bot.whisper(username, "Wait 6 seconds before getting typing this again. - ");
+      }else{
       bot.chat(`Checking if I can die!.`)
       bot.chat('/suicide')
       console.log()
       resolve()
+      cooldown.add(bot.username);
+      setTimeout(() => {
+        // Removes the user from the set after a minute
+        cooldown.delete(bot.username);
+      }, 6000);
+      }
     })
   }
 
-  function STASH (sender, flags, args) {
+  function STASH (username, sender, flags, args) {
     return new Promise((resolve, reject) => {
+      if (cooldown.has(bot.username)) {
+        bot.whisper(username, "Wait 6 seconds before getting typing this again. - ");
+      }else{
       bot.chat(`Generated coords to a stash: ${between(1000, 5000000)} ${between(69,256)} ${between(1000, 5000000)} by UpKaz`)
       console.log()
       resolve()
+      cooldown.add(bot.username);
+      setTimeout(() => {
+        // Removes the user from the set after a minute
+        cooldown.delete(bot.username);
+      }, 6000);
+      }
     })
   }
 
   function howgay (username, sender, flags, args) {
     return new Promise((resolve, reject) => {
+      if (cooldown.has(bot.username)) {
+        bot.whisper(username, "Wait 6 seconds before getting typing this again. - ");
+      }else{
       bot.chat(`${username} is ${between(0, 100)}% gay`)
       console.log()
       resolve()
+      cooldown.add(bot.username);
+      setTimeout(() => {
+        // Removes the user from the set after a minute
+        cooldown.delete(bot.username);
+      }, 6000);
+      }
     })
   }
 
-  function letsgo (sender, flags, args) {
+  function letsgo (username, sender, flags, args) {
     return new Promise((resolve, reject) => {
-      bot.chat(`You know it's Baby, _____`)
+      if (cooldown.has(bot.username)) {
+        bot.whisper(username, "Wait 6 seconds before getting typing this again. - ");
+      }else{
+      bot.chat(`You know it's Baby, ____`)
       console.log()
       resolve()
+            cooldown.add(bot.username);
+      setTimeout(() => {
+        // Removes the user from the set after a minute
+        cooldown.delete(bot.username);
+      }, 6000);
+      }
     })
   }
 
 
-  function tps (sender, flags, args) {
+  function tps (username, sender, flags, args) {
     return new Promise((resolve, reject) => {
+      if (cooldown.has(bot.username)) {
+        bot.whisper(username, "Wait 6 seconds before getting typing this again. - ");
+      }else{
       bot.chat('Current tps: ' + bot.getTps())
-      console.log(bot.getTps())
       resolve()
+      cooldown.add(bot.username);
+      setTimeout(() => {
+        // Removes the user from the set after a minute
+        cooldown.delete(bot.username);
+      }, 6000);
+      }
     })
   }
 
@@ -181,30 +263,55 @@ bot.on('chat', (username, message) => {
     )
   }
 
-  function commands (username, message, rawMessage){
+  function commands (username, message, rawMessage, flags, args){
     return new Promise((resolve, reject) => {
-      console.log("https://basedbot.cf/commands")
-      bot.whisper(username, `https://basedbot.cf/commands. the commands`)
-      console.log()
+      if (cooldown.has(bot.username)) {
+        bot.whisper(username, "Wait 6 seconds before getting typing this again. - ");
+      }else{
+      console.log("https://basedbot.cf")
+      bot.whisper(username, `Go to https://basedbot.cf for commands`)
       resolve()
+      cooldown.add(bot.username);
+      setTimeout(() => {
+        // Removes the user from the set after a minute
+        cooldown.delete(bot.username);
+      }, 6000);
+      }
     })
   }
 
-  function help (username, message, rawMessage){
+  function help (username, message, rawMessage, flags, args){
     return new Promise((resolve, reject) => {
-      console.log("https://basedbot.cf/commands")
-      bot.whisper(username, `https://basedbot.cf/commands. the commands`)
+      if (cooldown.has(bot.username)) {
+        bot.whisper(username, "Wait 6 seconds before getting typing this again. - ");
+      }else{
+      console.log("https://basedbot.cf")
+      bot.whisper(username, `Go to https://basedbot.cf for commands`)
       console.log()
       resolve()
+      cooldown.add(bot.username);
+      setTimeout(() => {
+        // Removes the user from the set after a minute
+        cooldown.delete(bot.username);
+      }, 6000);
+      }
     })
   }
-
-
-  function uptime (sender, flags, args){
-    return new Promise((resolve, reject) => {     
+  
+  function uptime (username, sender, flags, args, flags, args){
+    return new Promise((resolve, reject) => { 
+      if (cooldown.has(bot.username)) {
+        bot.whisper(username, "Wait 6 seconds before getting typing this again. - ");
+      }else{    
       bot.chat(`Uptime: ${prettyMilliseconds(client.uptime, {compact: true})}`);
       console.log(prettyMilliseconds(client.uptime))
       resolve()
+      cooldown.add(bot.username);
+      setTimeout(() => {
+        // Removes the user from the set after a minute
+        cooldown.delete(bot.username);
+      }, 6000);
+      }
     })
   }
 
